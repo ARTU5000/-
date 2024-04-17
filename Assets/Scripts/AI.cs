@@ -6,7 +6,8 @@ using UnityEngine.AI;
 public class AI : MonoBehaviour
 {
     public NavMeshAgent agent;
-    public Transform target;
+    public GameObject target;
+    public Animator clone;
     // Start is called before the first frame update
     void Start()
     {
@@ -16,11 +17,23 @@ public class AI : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        agent.SetDestination(target.position);
-        //float dist = Dist(agent.gameObject.transform.position, target.position);
+        if (target.activeSelf == true)
+        {
+            agent.SetDestination(target.transform.position);
+        }
+        else
+        {
+            clone.SetBool("alto", true);
+            Invoke("Stop", 5);
+        }
 
-        float dist = Vector3.Distance(agent.transform.position, target.position);
+        float dist = Vector3.Distance(agent.transform.position, target.transform.position);
         print(dist);
+    }
+
+    public void Stop()
+    {
+        clone.SetBool("alto", false);
     }
 
     float Dist(Vector3 pos1, Vector3 pos2)
