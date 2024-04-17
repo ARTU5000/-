@@ -18,8 +18,8 @@ public class a : MonoBehaviour
     public void OnTriggerStay(Collider other)
     {
 
-        float x = Random.Range(-19, 19);
-        float z = Random.Range(-19, 19);
+        float x = Random.Range(-49, 50);
+        float z = Random.Range(-49, 50);
 
         transform.position = new Vector3(x, transform.position.y, z);
     }
