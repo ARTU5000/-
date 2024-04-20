@@ -21,13 +21,18 @@ public class traget : MonoBehaviour
         if (dist <= (1 + target.transform.position.y))
         {
             target.gameObject.SetActive(false);
-
             float x = Random.Range(-19, 19);
             float z = Random.Range(-19, 19);
 
             target.transform.position = new Vector3(x, target.transform.position.y, z);
 
-            target.gameObject.SetActive(true);
+
+            Invoke("Stop", 5);
         }
+    }
+
+    public void Stop()
+    {
+        target.gameObject.SetActive(true);
     }
 }
