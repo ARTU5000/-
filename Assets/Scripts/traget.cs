@@ -6,33 +6,64 @@ using static UnityEngine.GraphicsBuffer;
 public class traget : MonoBehaviour
 {
     public Transform npc;
-    public GameObject target;
+    public GameObject targetPrefabs;
+    private GameObject[] targets = new GameObject[10];
+    private int currentIndex = 0;
+    private float spawnInterval = 3f;
+
     // Start is called before the first frame update
     void Start()
     {
-        
+        InvokeRepeating("SpawnTarget", spawnInterval, spawnInterval);
     }
 
     // Update is called once per frame
     void Update()
     {
-        float dist = Vector3.Distance(target.gameObject.transform.position, npc.position);
-
-        if (dist <= (1 + target.transform.position.y))
+       for (int i = 0; i < targets.Length; i++)
         {
-            target.gameObject.SetActive(false);
-            float x = Random.Range(-19, 19);
-            float z = Random.Range(-19, 19);
+            GameObject target = targets[i];
+            if (target == null) continue;
 
-            target.transform.position = new Vector3(x, target.transform.position.y, z);
+            float dist = Vector3.Distance(target.transform.position, npc.position);
 
+            if (dist <= (2 + target.transform.position.y))
+            {
+                target.SetActive(false);
+                float x = Random.Range(-19, 19);
+                float z = Random.Range(-19, 19);
 
-            Invoke("Stop", 5);
+                target.transform.position = new Vector3(x, target.transform.position.y, z);
+
+                Invoke("ActivateTarget", 5f);
+            }
+        }
+
+        if (currentIndex >= 10)
+        {
+            CancelInvoke("SpawnTarget");
         }
     }
 
-    public void Stop()
+    private void ActivateTarget()
     {
-        target.gameObject.SetActive(true);
+        foreach (GameObject target in targets)
+        {
+            if (target == null) continue;
+            target.SetActive(true);
+        }
+    }
+
+    private void SpawnTarget()
+    {
+        if (currentIndex < 10)
+        {
+            GameObject newTarget = Instantiate(targetPrefabs, transform.position, Quaternion.identity);
+            float x = Random.Range(-19, 19);
+            float z = Random.Range(-19, 19);
+            newTarget.transform.position = new Vector3(x, newTarget.transform.position.y, z);
+            targets[currentIndex] = newTarget;
+            currentIndex++;
+        }
     }
 }

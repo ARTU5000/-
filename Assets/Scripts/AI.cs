@@ -6,43 +6,71 @@ using UnityEngine.AI;
 public class AI : MonoBehaviour
 {
     public NavMeshAgent agent;
-    public GameObject target;
-    public Animator clone;
-    // Start is called before the first frame update
+    public GameObject[] targets = new GameObject[10];
+    public Animator clone; 
+    public GameObject closestTarget;
+
     void Start()
     {
-        
+        clone.SetBool("alto", true);
+        Invoke("Stop", 5);
+        closestTarget = null;
     }
 
-    // Update is called once per frame
     void Update()
     {
-        if (target.activeSelf == true)
+
+        if (!clone.GetBool("alto") && closestTarget == null)
         {
-            agent.SetDestination(target.transform.position);
-        }
-        else
-        {
-            clone.SetBool("alto", true);
-            Invoke("Stop", 5);
+            FindTargets();
+            closestTarget = GetClosestTarget();
         }
 
-        float dist = Vector3.Distance(agent.transform.position, target.transform.position);
-        print(dist);
+        if (closestTarget != null)
+        {
+            agent.SetDestination(closestTarget.transform.position);
+
+            if (!closestTarget.activeSelf)
+            {
+                agent.isStopped = true;
+                clone.SetBool("alto", true);
+                Invoke("Stop", 5);
+            }
+            else
+            {
+                agent.isStopped = false;
+            }
+        }
     }
 
-    public void Stop()
+    void Stop()
     {
         clone.SetBool("alto", false);
+        closestTarget = null;
     }
 
-    float Dist(Vector3 pos1, Vector3 pos2)
+    GameObject GetClosestTarget()
     {
-        float x = pos2.x - pos1.x;
-        float y = pos2.y - pos1.y;
-        float z = pos2.z - pos1.z;
+        GameObject ClosestTarget = null;
+        float closestDistance = Mathf.Infinity;
 
-        float dist = Mathf.Sqrt(x * x + y * y + z * z);
-        return dist;
+        foreach (GameObject target in targets)
+        {
+            if (target == null) continue;
+
+            float dist = Vector3.Distance(agent.transform.position, target.transform.position);
+            if (dist < closestDistance)
+            {
+                closestDistance = dist;
+                ClosestTarget = target;
+            }
+        }
+
+        return ClosestTarget;
+    }
+
+    void FindTargets()
+    {
+        targets = GameObject.FindGameObjectsWithTag("Target");
     }
 }

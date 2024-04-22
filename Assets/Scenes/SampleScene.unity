@@ -184,11 +184,6 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 88753802a82b30347a8a9cdac6084e9a, type: 3}
---- !u!1 &483744637 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 36292738249684857, guid: 3beaf9dd552109b469ca43a3d5b1181b, type: 3}
-  m_PrefabInstance: {fileID: 8037708150434259378}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &511450972
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -549,7 +544,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   npc: {fileID: 1191803534}
-  target: {fileID: 483744637}
+  targetPrefabs: {fileID: 36292738249684857, guid: 3beaf9dd552109b469ca43a3d5b1181b, type: 3}
 --- !u!1001 &970527406
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -648,7 +643,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: d18a8331c97de6e4f9c810ceff4f9939, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0
+      value: 2.3
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: d18a8331c97de6e4f9c810ceff4f9939, type: 3}
       propertyPath: m_LocalPosition.z
@@ -927,16 +922,16 @@ NavMeshAgent:
   m_GameObject: {fileID: 1191803530}
   m_Enabled: 1
   m_AgentTypeID: 0
-  m_Radius: 0.5
+  m_Radius: 2
   m_Speed: 3.5
   m_Acceleration: 8
-  avoidancePriority: 50
-  m_AngularSpeed: 120
+  avoidancePriority: 1
+  m_AngularSpeed: 200
   m_StoppingDistance: 0
   m_AutoTraverseOffMeshLink: 1
   m_AutoBraking: 1
   m_AutoRepath: 1
-  m_Height: 2
+  m_Height: 4.5
   m_BaseOffset: 0
   m_WalkableMask: 4294967295
   m_ObstacleAvoidanceType: 4
@@ -953,8 +948,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   agent: {fileID: 1191803535}
-  target: {fileID: 483744637}
+  targets:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
   clone: {fileID: 1191803533}
+  closestTarget: {fileID: 0}
 --- !u!1001 &1199832183
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1568,6 +1574,10 @@ PrefabInstance:
     - target: {fileID: 36292738249684857, guid: 3beaf9dd552109b469ca43a3d5b1181b, type: 3}
       propertyPath: m_Name
       value: TARGET
+      objectReference: {fileID: 0}
+    - target: {fileID: 36292738249684857, guid: 3beaf9dd552109b469ca43a3d5b1181b, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8530254207185486517, guid: 3beaf9dd552109b469ca43a3d5b1181b, type: 3}
       propertyPath: m_RootOrder
