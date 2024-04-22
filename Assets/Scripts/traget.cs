@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using static UnityEngine.GraphicsBuffer;
+using TMPro;
 
 public class traget : MonoBehaviour
 {
@@ -10,6 +11,8 @@ public class traget : MonoBehaviour
     private GameObject[] targets = new GameObject[10];
     private int currentIndex = 0;
     private float spawn = 3f;
+    public int totalTargets;
+    public TextMeshProUGUI targetNumber;
 
     // Start is called before the first frame update
     void Start()
@@ -20,6 +23,8 @@ public class traget : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+       targetNumber.text = totalTargets.ToString();
+
        for (int i = 0; i < targets.Length; i++)
         {
             GameObject target = targets[i];
@@ -33,7 +38,7 @@ public class traget : MonoBehaviour
                 float x = Random.Range(-19, 19);
                 float z = Random.Range(-19, 19);
 
-                target.transform.position = new Vector3(x, target.transform.position.y, z);
+                target.transform.position = new Vector3(x, 1, z);
 
                 Invoke("ActivateTarget", 5f);
             }
@@ -61,9 +66,10 @@ public class traget : MonoBehaviour
             GameObject newTarget = Instantiate(targetPrefabs, transform.position, Quaternion.identity);
             float x = Random.Range(-19, 19);
             float z = Random.Range(-19, 19);
-            newTarget.transform.position = new Vector3(x, newTarget.transform.position.y, z);
+            newTarget.transform.position = new Vector3(x, 1, z);
             targets[currentIndex] = newTarget;
             currentIndex++;
+            totalTargets++;
         }
     }
 }
