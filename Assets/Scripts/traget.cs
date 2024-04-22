@@ -23,7 +23,7 @@ public class traget : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-       targetNumber.text = totalTargets.ToString();
+       /* targetNumber.text = totalTargets.ToString();
 
        for (int i = 0; i < targets.Length; i++)
         {
@@ -38,11 +38,11 @@ public class traget : MonoBehaviour
                 float x = Random.Range(-19, 19);
                 float z = Random.Range(-19, 19);
 
-                target.transform.position = new Vector3(x, 1, z);
+                target.transform.position = new Vector3(x, 2, z);
 
                 Invoke("ActivateTarget", 5f);
             }
-        }
+        } */
 
         if (currentIndex >= 10)
         {
@@ -66,7 +66,7 @@ public class traget : MonoBehaviour
             GameObject newTarget = Instantiate(targetPrefabs, transform.position, Quaternion.identity);
             float x = Random.Range(-19, 19);
             float z = Random.Range(-19, 19);
-            newTarget.transform.position = new Vector3(x, 1, z);
+            newTarget.transform.position = new Vector3(x, 2, z);
             targets[currentIndex] = newTarget;
             currentIndex++;
             totalTargets++;
