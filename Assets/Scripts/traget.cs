@@ -9,12 +9,12 @@ public class traget : MonoBehaviour
     public GameObject targetPrefabs;
     private GameObject[] targets = new GameObject[10];
     private int currentIndex = 0;
-    private float spawnInterval = 3f;
+    private float spawn = 3f;
 
     // Start is called before the first frame update
     void Start()
     {
-        InvokeRepeating("SpawnTarget", spawnInterval, spawnInterval);
+        InvokeRepeating("SpawnTarget", spawn, spawn);
     }
 
     // Update is called once per frame
