@@ -12,6 +12,7 @@ public class AI : MonoBehaviour
 
     void Start()
     {
+        agent = GetComponent<NavMeshAgent>();
         clone.SetBool("alto", true);
         Invoke("Stop", 5);
         closestTarget = null;
@@ -23,8 +24,9 @@ public class AI : MonoBehaviour
         if (!clone.GetBool("alto") && closestTarget == null)
         {
             FindTargets();
-            closestTarget = GetClosestTarget();
+            //closestTarget = GetClosestTarget();
         }
+            closestTarget = GetClosestTarget();
 
         if (closestTarget != null)
         {

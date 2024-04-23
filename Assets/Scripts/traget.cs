@@ -23,39 +23,9 @@ public class traget : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-       /* targetNumber.text = totalTargets.ToString();
-
-       for (int i = 0; i < targets.Length; i++)
-        {
-            GameObject target = targets[i];
-            if (target == null) continue;
-
-            float dist = Vector3.Distance(target.transform.position, npc.position);
-
-            if (dist <= (2 + target.transform.position.y))
-            {
-                target.SetActive(false);
-                float x = Random.Range(-19, 19);
-                float z = Random.Range(-19, 19);
-
-                target.transform.position = new Vector3(x, 2, z);
-
-                Invoke("ActivateTarget", 5f);
-            }
-        } */
-
         if (currentIndex >= 10)
         {
             CancelInvoke("SpawnTarget");
-        }
-    }
-
-    private void ActivateTarget()
-    {
-        foreach (GameObject target in targets)
-        {
-            if (target == null) continue;
-            target.SetActive(true);
         }
     }
 
