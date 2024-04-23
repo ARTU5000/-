@@ -5,28 +5,28 @@ using UnityEngine.AI;
 
 public class AI : MonoBehaviour
 {
+    
     public NavMeshAgent agent;
-    public GameObject[] targets = new GameObject[10];
-    public Animator clone; 
+    public List<GameObject> targets = new List<GameObject>(); 
+    public Animator clone;
     public GameObject closestTarget;
+    public GameObject courrentTarget;
 
     void Start()
     {
         agent = GetComponent<NavMeshAgent>();
         clone.SetBool("alto", true);
-        Invoke("Stop", 5);
+        Invoke("Stop", 7);
         closestTarget = null;
     }
 
     void Update()
     {
-
         if (!clone.GetBool("alto") && closestTarget == null)
         {
             FindTargets();
-            //closestTarget = GetClosestTarget();
-        }
             closestTarget = GetClosestTarget();
+        }
 
         if (closestTarget != null)
         {
@@ -34,6 +34,7 @@ public class AI : MonoBehaviour
 
             if (!closestTarget.activeSelf)
             {
+                closestTarget = this.gameObject;
                 agent.isStopped = true;
                 clone.SetBool("alto", true);
                 Invoke("Stop", 5);
@@ -61,6 +62,7 @@ public class AI : MonoBehaviour
             if (target == null) continue;
 
             float dist = Vector3.Distance(agent.transform.position, target.transform.position);
+
             if (dist < closestDistance)
             {
                 closestDistance = dist;
@@ -73,6 +75,9 @@ public class AI : MonoBehaviour
 
     void FindTargets()
     {
-        targets = GameObject.FindGameObjectsWithTag("Target");
+        GameObject[] targetArray = GameObject.FindGameObjectsWithTag("Target");
+        targets = new List<GameObject>(targetArray); 
     }
+
 }
+
