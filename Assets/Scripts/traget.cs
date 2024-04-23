@@ -27,19 +27,23 @@ public class traget : MonoBehaviour
     {
         foreach (GameObject target in targets)
         {
-            if (target == null) continue;
-            
-            float dist = Vector3.Distance(target.transform.position, npc.position);
-
-            if (dist <= (2 + target.transform.position.y))
+            foreach (GameObject play in player)
             {
-                target.SetActive(false);
-                float x = Random.Range(-19, 19);
-                float z = Random.Range(-19, 19);
+                npc = play.transform;
+                if (target == null) continue;
 
-                target.transform.position = new Vector3(x, target.transform.position.y, z);
+                float dist = Vector3.Distance(target.transform.position, npc.position);
 
-                Invoke("ActivateTarget", 5f);
+                if (dist <= (2 + target.transform.position.y))
+                {
+                    target.SetActive(false);
+                    float x = Random.Range(-19, 19);
+                    float z = Random.Range(-19, 19);
+
+                    target.transform.position = new Vector3(x, target.transform.position.y, z);
+
+                    Invoke("ActivateTarget", 5f);
+                }
             }
         }
             
