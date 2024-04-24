@@ -16,7 +16,7 @@ public class AI : MonoBehaviour
     {
         agent = GetComponent<NavMeshAgent>();
         clone.SetBool("alto", true);
-        Invoke("Stop", 7);
+        Invoke("Stop", 5);
         closestTarget = null;
     }
 
@@ -37,7 +37,7 @@ public class AI : MonoBehaviour
                 closestTarget = this.gameObject;
                 agent.isStopped = true;
                 clone.SetBool("alto", true);
-                Invoke("Stop", 5);
+                Invoke("Stop", 3);
             }
             else
             {

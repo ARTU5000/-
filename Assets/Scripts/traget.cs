@@ -46,11 +46,27 @@ public class traget : MonoBehaviour
                 }
             }
         }
+
+        totalTargets = Activetargets();
+        targetNumber.text = "Activos: " + totalTargets;
             
-        if (targets.Count >= 20) 
+        if (targets.Count >= 30) 
         {
             CancelInvoke("SpawnTarget");
         }
+    }
+
+    int Activetargets()
+    {
+        int TotalTargets = 0;
+        foreach (GameObject target in targets)
+        {
+            if (target.activeSelf)
+            {
+                TotalTargets++;
+            }
+        }
+        return TotalTargets;
     }
 
     private void ActivateTarget()
@@ -64,7 +80,7 @@ public class traget : MonoBehaviour
 
     private void SpawnTarget()
     {
-        if (targets.Count < 20)
+        if (targets.Count < 30)
         {
             GameObject newTarget = Instantiate(targetPrefabs, transform.position, Quaternion.identity);
 
