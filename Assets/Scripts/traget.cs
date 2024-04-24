@@ -10,16 +10,18 @@ public class traget : MonoBehaviour
     public GameObject playerPrefabs;
     private List<GameObject> targets = new List<GameObject>();
     private List<GameObject> player = new List<GameObject>();
-    private float spawn = 2f;
+    private float spawn = .2f;
     public int totalTargets;
     public TextMeshProUGUI targetNumber;
+    public int totalplayers;
+    public TextMeshProUGUI playersNumber;
     public GameObject[] spawnPoints;
 
     // Start is called before the first frame update
     void Start()
     {
         InvokeRepeating("SpawnTarget", spawn, spawn);
-        InvokeRepeating("players",1f,1f);
+        InvokeRepeating("players",.1f,.1f);
     }
 
     // Update is called once per frame
@@ -37,8 +39,8 @@ public class traget : MonoBehaviour
                 if (dist <= (2 + target.transform.position.y))
                 {
                     target.SetActive(false);
-                    float x = Random.Range(-19, 19);
-                    float z = Random.Range(-19, 19);
+                    float x = Random.Range(-149, 150);
+                    float z = Random.Range(-149, 150);
 
                     target.transform.position = new Vector3(x, target.transform.position.y, z);
 
@@ -48,11 +50,17 @@ public class traget : MonoBehaviour
         }
 
         totalTargets = Activetargets();
-        targetNumber.text = "Activos: " + totalTargets;
-            
-        if (targets.Count >= 30) 
+        targetNumber.text = "Targets Activos: " + totalTargets;
+        totalplayers = Activeplayers();
+        playersNumber.text = "Clones Activos: " + totalplayers;
+
+        if (targets.Count >= 300) 
         {
             CancelInvoke("SpawnTarget");
+        }
+        if (player.Count >= 300)
+        {
+            CancelInvoke("players");
         }
     }
 
@@ -60,6 +68,18 @@ public class traget : MonoBehaviour
     {
         int TotalTargets = 0;
         foreach (GameObject target in targets)
+        {
+            if (target.activeSelf)
+            {
+                TotalTargets++;
+            }
+        }
+        return TotalTargets;
+    }
+    int Activeplayers()
+    {
+        int TotalTargets = 0;
+        foreach (GameObject target in player)
         {
             if (target.activeSelf)
             {
@@ -80,12 +100,12 @@ public class traget : MonoBehaviour
 
     private void SpawnTarget()
     {
-        if (targets.Count < 30)
+        if (targets.Count < 300)
         {
             GameObject newTarget = Instantiate(targetPrefabs, transform.position, Quaternion.identity);
 
-            float x = Random.Range(-19, 19);
-            float z = Random.Range(-19, 19);
+            float x = Random.Range(-149, 150);
+            float z = Random.Range(-149, 150);
 
             newTarget.transform.position = new Vector3(x, 2, z);
             targets.Add(newTarget); 
@@ -94,12 +114,12 @@ public class traget : MonoBehaviour
     private void players()
     {
         GameObject randomSpawnPoint = GetRandomSpawnPoint();
-        if (player.Count < 10)
+        if (player.Count < 300)
         {
             GameObject newplayer = Instantiate(playerPrefabs, randomSpawnPoint.transform.localPosition, Quaternion.identity);
         
-            float x = Random.Range(-19, 19);
-            float z = Random.Range(-19, 19);
+            float x = Random.Range(-149, 150);
+            float z = Random.Range(-149, 150);
 
             newplayer.transform.position = new Vector3(x, 2, z);
             player.Add(newplayer); 
