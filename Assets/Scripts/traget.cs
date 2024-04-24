@@ -54,11 +54,11 @@ public class traget : MonoBehaviour
         totalplayers = Activeplayers();
         playersNumber.text = "Clones Activos: " + totalplayers;
 
-        if (targets.Count >= 300) 
+        if (targets.Count >= 30) 
         {
             CancelInvoke("SpawnTarget");
         }
-        if (player.Count >= 300)
+        if (player.Count >= 30)
         {
             CancelInvoke("players");
         }
@@ -100,7 +100,7 @@ public class traget : MonoBehaviour
 
     private void SpawnTarget()
     {
-        if (targets.Count < 300)
+        if (targets.Count < 30)
         {
             GameObject newTarget = Instantiate(targetPrefabs, transform.position, Quaternion.identity);
 
@@ -114,7 +114,7 @@ public class traget : MonoBehaviour
     private void players()
     {
         GameObject randomSpawnPoint = GetRandomSpawnPoint();
-        if (player.Count < 300)
+        if (player.Count < 30)
         {
             GameObject newplayer = Instantiate(playerPrefabs, randomSpawnPoint.transform.localPosition, Quaternion.identity);
         
