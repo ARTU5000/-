@@ -22,32 +22,12 @@ public class traget : MonoBehaviour
     {
         InvokeRepeating("SpawnTarget", spawn, spawn);
         InvokeRepeating("players",.1f,.1f);
+        InvokeRepeating("ActivateTarget", 5f, 5f);
     }
 
     // Update is called once per frame
     void Update()
     {
-        foreach (GameObject target in targets)
-        {
-            if (target == null) continue;
-
-            foreach (GameObject play in player)
-            {
-                float dist = Vector3.Distance(target.transform.position, play.transform.position);
-
-                if (dist <= (2 + target.transform.position.y))
-                {
-                    target.SetActive(false);
-                    float x = Random.Range(-149, 150);
-                    float z = Random.Range(-149, 150);
-
-                    target.transform.position = new Vector3(x, target.transform.position.y, z);
-
-                    Invoke("ActivateTarget", 5f);
-                }
-            }
-        }
-
         totalTargets = Activetargets();
         targetNumber.text = "Targets Activos: " + totalTargets;
         totalplayers = Activeplayers();
