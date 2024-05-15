@@ -34,10 +34,11 @@ public class AI : MonoBehaviour
 
         if (clone.GetBool("morido") && !clone.GetCurrentAnimatorStateInfo(0).IsName("Dying Backwards"))
         {
-            Invoke("Death", 2);
+            deathbeacon.SetActive(true);
+            Invoke("Death", 5);
         }
 
-        if (!clone.GetBool("alto") && closestTarget == null)
+        if (!clone.GetBool("alto") && closestTarget == null && !clone.GetBool("morido"))
         {
             FindTargets();
             closestTarget = GetClosestTarget();

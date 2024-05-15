@@ -28,7 +28,7 @@ public class traget : MonoBehaviour
         InvokeRepeating("players",.1f,.1f);
         InvokeRepeating("ActivateTarget", 5f, 5f);
         InvokeRepeating("Activate",3f,3f);
-        RandTime = Random.Range(30, 50);
+        RandTime = Random.Range(10, 50);
         Invoke("die", RandTime);
     }
 
@@ -60,7 +60,7 @@ public class traget : MonoBehaviour
         {
             clone = player[RandPlayer].GetComponent<Animator>();
             clone.SetBool("morido", true);
-            RandTime = Random.Range(30, 50);
+            RandTime = Random.Range(10, 50);
             Invoke("die", RandTime);
         }
     }
