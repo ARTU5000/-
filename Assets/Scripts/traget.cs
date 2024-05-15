@@ -10,12 +10,16 @@ public class traget : MonoBehaviour
     public GameObject playerPrefabs;
     private List<GameObject> targets = new List<GameObject>();
     private List<GameObject> player = new List<GameObject>();
+    private List<GameObject> playerA = new List<GameObject>();
     private float spawn = .2f;
     public int totalTargets;
     public TextMeshProUGUI targetNumber;
     public int totalplayers;
     public TextMeshProUGUI playersNumber;
     public GameObject[] spawnPoints;
+    public Animator clone;
+    public float RandTime;
+    public int RandPlayer;
 
     // Start is called before the first frame update
     void Start()
@@ -23,6 +27,9 @@ public class traget : MonoBehaviour
         InvokeRepeating("SpawnTarget", spawn, spawn);
         InvokeRepeating("players",.1f,.1f);
         InvokeRepeating("ActivateTarget", 5f, 5f);
+        InvokeRepeating("Activate",3f,3f);
+        RandTime = Random.Range(30, 50);
+        Invoke("die", RandTime);
     }
 
     // Update is called once per frame
@@ -40,6 +47,21 @@ public class traget : MonoBehaviour
         if (player.Count >= 300)
         {
             CancelInvoke("players");
+        }
+
+        playerA.Clear();
+        playerA = player.FindAll(go => go.activeInHierarchy);
+        RandPlayer = Random.Range(0, playerA.Count);
+    }
+
+    void die()
+    {
+        if (player[RandPlayer].activeSelf)
+        {
+            clone = player[RandPlayer].GetComponent<Animator>();
+            clone.SetBool("morido", true);
+            RandTime = Random.Range(30, 50);
+            Invoke("die", RandTime);
         }
     }
 
@@ -66,6 +88,18 @@ public class traget : MonoBehaviour
             }
         }
         return TotalTargets;
+    }
+
+    void Activate()
+    {
+        foreach (GameObject a in player)
+        {
+            if (!a.activeSelf)
+            {
+                a.SetActive(true);
+                break;
+            }
+        }
     }
 
     private void ActivateTarget()

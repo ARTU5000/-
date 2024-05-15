@@ -11,6 +11,7 @@ public class AI : MonoBehaviour
     public Animator clone;
     public GameObject closestTarget;
     public GameObject courrentTarget;
+    public GameObject deathbeacon;
 
     void Start()
     {
@@ -22,6 +23,20 @@ public class AI : MonoBehaviour
 
     void Update()
     {
+        if (clone.GetBool("morido"))
+        {
+            deathbeacon.SetActive(true);
+        }
+        else
+        {
+            deathbeacon.SetActive(false);
+        }
+
+        if (clone.GetBool("morido") && !clone.GetCurrentAnimatorStateInfo(0).IsName("Dying Backwards"))
+        {
+            Invoke("Death", 2);
+        }
+
         if (!clone.GetBool("alto") && closestTarget == null)
         {
             FindTargets();
@@ -77,6 +92,11 @@ public class AI : MonoBehaviour
     {
         GameObject[] targetArray = GameObject.FindGameObjectsWithTag("Target");
         targets = new List<GameObject>(targetArray); 
+    }
+
+    void Death()
+    {
+        this.gameObject.SetActive(false);
     }
 
 }
