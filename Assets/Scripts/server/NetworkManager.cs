@@ -6,7 +6,7 @@ using static System.Net.WebRequestMethods;
 
 public class NetworkManager : MonoBehaviour
 {
-    public string ip = "http://172.100.4.82";
+    public string ip = "http://###.###.#.##"; //ip del puerto local de la pc
     public string port = "3000";
     void Start()
     {
